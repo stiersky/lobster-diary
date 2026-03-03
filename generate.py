@@ -16,6 +16,11 @@ OUTPUT_FILE = BASE_DIR / "index.html"
 
 def read_template():
     """读取 HTML 模板"""
+    # 优先使用 v2 模板
+    v2_template = TEMPLATES_DIR / "index-v2.html"
+    if v2_template.exists():
+        with open(v2_template, "r", encoding="utf-8") as f:
+            return f.read()
     with open(TEMPLATES_DIR / "index.html", "r", encoding="utf-8") as f:
         return f.read()
 
@@ -48,8 +53,7 @@ def parse_diary(filepath):
     if tags:
         for tag in tags.split():
             tag_name = tag.strip('#')
-            tag_class = tag_name.lower()
-            tags_html += f'<span class="tag {tag_class}">{tag}</span> '
+            tags_html += f'<span class="tag">{tag}</span> '
     
     return {
         'title': title,
@@ -100,11 +104,11 @@ def generate_html():
     entries_html = ""
     for diary in diaries:
         entries_html += f"""
-        <div class="diary-entry">
-            <div class="diary-date">{diary['date']}</div>
-            <div class="diary-title">{diary['title']}</div>
-            <div class="tags">{diary['tags']}</div>
-            <div class="diary-content">{diary['body']}</div>
+        <div class="timeline-item fade-in">
+            <div class="timeline-date">{diary['date']}</div>
+            <div class="timeline-title">{diary['title']}</div>
+            <div class="timeline-content">{diary['body']}</div>
+            <div class="timeline-tags">{diary['tags']}</div>
         </div>
         """
     
