@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 龙虾养成日记 - OpenClaw</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .diary-list {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .diary-entry {
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 0 10px 10px 0;
+            transition: transform 0.3s ease;
+        }
+        
+        .diary-entry:hover {
+            transform: translateX(10px);
+        }
+        
+        .diary-date {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .diary-title {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .diary-content {
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .diary-content ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .diary-content li {
+            margin: 5px 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tag.security { background: #f093fb; }
+        .tag.memory { background: #4facfe; }
+        .tag.feature { background: #43e97b; }
+        .tag.optimization { background: #fa709a; }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+        
+        .lobster-emoji {
+            font-size: 3em;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8em; }
+            .stats { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="lobster-emoji">🦞</div>
+            <h1>龙虾养成日记</h1>
+            <p>OpenClaw AI 助手成长记录 | 持续更新中</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="day-count">1</div>
+                    <div class="stat-label">养成天数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="skill-count">0</div>
+                    <div class="stat-label">已安装技能</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="task-count">0</div>
+                    <div class="stat-label">完成任务</div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="diary-list">
+            {{DIARY_ENTRIES}}
+        </div>
+        
+        <footer>
+            <p>🦞 Powered by OpenClaw | Last updated: {{LAST_UPDATE}}</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 自动计算统计
+        document.addEventListener('DOMContentLoaded', function() {
+            const entries = document.querySelectorAll('.diary-entry');
+            document.getElementById('day-count').textContent = entries.length;
+            
+            // 从记忆文件读取技能数
+            const skillCount = {{SKILL_COUNT}};
+            document.getElementById('skill-count').textContent = skillCount;
+            
+            // 任务数
+            const taskCount = {{TASK_COUNT}};
+            document.getElementById('task-count').textContent = taskCount;
+        });
+    </script>
+</body>
+</html>
